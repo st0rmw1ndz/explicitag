@@ -15,12 +15,18 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
-      - name: Move to solution directory
-        run: cd src
+          dotnet-version: 8.0.x
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore src
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build src --no-restore
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test src --no-build --verbosity normal
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            ./publish/*

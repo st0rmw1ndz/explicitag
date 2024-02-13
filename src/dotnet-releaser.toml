@@ -1,0 +1,6 @@
+[msbuild]
+project = "ExpliciTag.csproj"
+
+[github]
+user = "st0rmw1ndz"
+repo = "explicitag"

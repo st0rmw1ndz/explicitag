@@ -30,40 +30,45 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
-
+  
     steps:
     - uses: actions/checkout@v2
-
+  
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '8.0.x'
-
+        dotnet-version: '3.1'
+  
     - name: Build
       run: |
         cd src
         dotnet restore
         dotnet build --configuration Release --no-restore
         dotnet publish --configuration Release --no-restore --output ./publish
-
+  
+    - name: Create Zip
+      run: |
+        cd src/publish
+        zip -r application-${{ matrix.os }}.zip .
+  
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ github.ref }}
         release_name: ${{ github.ref }}
         body: ${{ github.event.head_commit.message }}
         draft: false
         prerelease: false
-
+  
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./src/publish/
+        asset_path: ./src/publish/application-${{ matrix.os }}.zip
         asset_name: application-${{ matrix.os }}.zip
         asset_content_type: application/zip

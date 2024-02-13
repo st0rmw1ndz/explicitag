@@ -1,32 +1,69 @@
-name: .NET
+name: Build and Release
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    tags:
+      - v[0-9]+.*
 
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 8.0.x
-      - name: Restore dependencies
-        run: dotnet restore src
-      - name: Build
-        run: dotnet build src --no-restore
-      - name: Test
-        run: dotnet test src --no-build --verbosity normal
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
-          files: |
-            ./publish/*
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Build and Test
+      run: |
+        cd src
+        dotnet restore
+        dotnet build --configuration Release --no-restore
+        dotnet test --no-restore --verbosity normal
+
+  build_and_release:
+    needs: build_and_test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1'
+
+    - name: Build
+      run: |
+        cd src
+        dotnet restore
+        dotnet build --configuration Release --no-restore
+        dotnet publish --configuration Release --no-restore --output ./publish
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        body: ${{ github.event.head_commit.message }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./src/publish/
+        asset_name: application-${{ matrix.os }}.zip
+        asset_content_type: application/zip

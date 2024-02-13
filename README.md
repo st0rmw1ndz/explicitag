@@ -5,4 +5,3 @@
 [![GitHub License](https://img.shields.io/github/license/st0rmw1ndz/explicitag)](https://github.com/st0rmw1ndz/explicitag/blob/main/LICENSE)
 
 An automatic MP4 rating tagger based on embedded lyrics.
-

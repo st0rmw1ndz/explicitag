@@ -30,4 +30,4 @@ jobs:
         if: github.event_name == 'push'
         shell: bash
         run: |
-            ./src/dotnet-releaser/bin/Debug/net7.0/dotnet-releaser run --github-token "${{secrets.TOKEN}}" src/dotnet-releaser.toml
+            ./src/ExpliciTag/bin/Debug/net7.0/ExpliciTag run --github-token "${{secrets.TOKEN}}" src/dotnet-releaser.toml

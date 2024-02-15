@@ -8,6 +8,8 @@ An automatic MP4 rating tagger based on embedded lyrics.
 
 ## Usage
 
+Clone the repository, and build, or use `cargo run`.
+
 ```
 An automatic MP4 rating tagger based on embedded lyrics.
 

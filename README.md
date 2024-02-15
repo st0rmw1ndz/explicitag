@@ -44,5 +44,5 @@ File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.14 - Tina.m4a -
 File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.15 - Inglorious.m4a - Explicit
 ```
 
-> ![NOTE]
+> [!NOTE]
 > The order in which files are processed is scrambled since it's asynchronous.

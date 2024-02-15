@@ -1,0 +1,18 @@
+[package]
+name = "explicitag"
+version = "0.1.0"
+authors = ["frosty <inthishouseofcards@gmail.com>"]
+edition = "2021"
+description = "An automatic MP4 rating tagger based on embedded lyrics."
+readme = "README.md"
+repository = "https://github.com/st0rm1wndz/explicitag"
+license-file = "LICENSE"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { version = "4.5.0", features = ["derive"] }
+eyre = "0.6.12"
+mp4ameta = "0.11.0"
+tokio = { version = "1.36.0", features = ["full"] }
+walkdir = "2.4.0"

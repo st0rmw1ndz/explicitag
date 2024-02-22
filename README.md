@@ -70,7 +70,11 @@ https://github.com/st0rm1wndz/explicitag
 
 ## Future Features
 
-- [ ] Rework the words list, as it's tailored towards bypassed words.
 - [ ] Support a custom words list file as an argument.
 - [ ] Properly address API ratelimits.
 - [ ] Improve IO operations speed somehow.
+
+## Attributions
+
+- [Lyrist](https://lyrist.vercel.app) - Lyrics API
+- [List of Dirty, Naughty, Obscene, and Otherwise Bad Words](https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words) - Explicit words list

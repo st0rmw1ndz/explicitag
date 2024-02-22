@@ -1,6 +1,6 @@
 [package]
 name = "explicitag"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["frosty <inthishouseofcards@gmail.com>"]
 edition = "2021"
 description = "An automatic MP4 rating tagger based on embedded lyrics."

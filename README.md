@@ -8,7 +8,7 @@ An automatic MP4 rating tagger based on embedded lyrics.
 
 ## Usage
 
-Clone the repository, and build, or use `cargo run`.
+Clone the repository and build, or use `cargo run`.
 
 ```
 An automatic MP4 rating tagger based on embedded lyrics.
@@ -19,8 +19,12 @@ Arguments:
   <PATHS>...  Files or directories to process
 
 Options:
-  -h, --help     Print help
-  -V, --version  Print version
+  -c, --mark-clean    Mark safe tracks as specifically clean
+  -a, --use-api       Search API for lyrics if local ones aren't present
+  -w, --write-lyrics  Write the lyrics from the API to the file
+  -q, --quiet         Suppress all output from the program
+  -h, --help          Print help
+  -V, --version       Print version
 
 https://github.com/st0rm1wndz/explicitag
 ```
@@ -28,23 +32,22 @@ https://github.com/st0rm1wndz/explicitag
 ## Example
 
 ```
-> explicitag "D:\Files\Music Library\Tyler, the Creator\(2009) Bastard"
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.01 - Bastard.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.03 - Odd Toddlers.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.02 - Seven.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.06 - Pigs Fly.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.07 - Parade.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.09 - AssMilk.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.05 - Blow.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.04 - French!.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.12 - Sarah.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.08 - Slow It Down.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.10 - VCR_Wheels.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.11 - Session.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.13 - Jack and the Beanstalk.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.14 - Tina.m4a - Explicit
-File: D:\Files\Music Library\Tyler, the Creator\(2009) Bastard\1.15 - Inglorious.m4a - Explicit
+> explicitag "D:\Files\Music Library\deadmau5\(2010) 4x4=12"
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.01 - Some Chords.m4a - No lyrics found
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.05 - Animal Rights.m4a - No lyrics found
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.10 - Everything Before.m4a - No lyrics found
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.03 - City in Florida.m4a - No lyrics found
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.07 - Right This Second.m4a - No lyrics found
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.09 - One Trick Pony.m4a - (Local) Explicit
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.04 - Bad Selection.m4a - (Local) Inoffensive
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.06 - I Said (Michael Woods Remix).m4a - (Local) Inoffensive
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.08 - Raise Your Weapon.m4a - (Local) Explicit
+D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.02 - SOFI Needs a Ladder.m4a - (Local) Inoffensive
+Processed 10 files. Skipped 5 files.
 ```
 
-> [!NOTE]
-> The order in which files are processed is scrambled since it's asynchronous.
+## Future Features
+
+- [ ] Rework the words list, it's tailored towards bypassed words.
+- [ ] Support a custom words list as an argument.
+- [ ] Properly address API ratelimits.

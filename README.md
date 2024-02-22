@@ -1,17 +1,17 @@
 # explicitag
 
-<!-- [![Rust](https://github.com/st0rmw1ndz/explicitag/workflows/Rust/badge.svg)](https://github.com/st0rmw1ndz/explicitag/actions/workflows/rust.yml) -->
-<!-- [![Release](https://img.shields.io/github/v/release/st0rmw1ndz/explicitag)](https://github.com/st0rmw1ndz/explicitag/releases/latest) -->
+[![Rust](https://github.com/st0rmw1ndz/explicitag/workflows/Rust/badge.svg)](https://github.com/st0rmw1ndz/explicitag/actions/workflows/rust.yml)
+[![Release](https://img.shields.io/github/v/release/st0rmw1ndz/explicitag)](https://github.com/st0rmw1ndz/explicitag/releases/latest)
 [![License](https://img.shields.io/github/license/st0rmw1ndz/explicitag)](https://github.com/st0rmw1ndz/explicitag/blob/main/LICENSE)
 
-An automatic MP4 rating tagger based on embedded lyrics.
+An automatic MP4 rating tagger based on embedded or searched lyrics.
 
 ## Usage
 
 Clone the repository and build, or use `cargo run`.
 
 ```
-An automatic MP4 rating tagger based on embedded lyrics.
+An automatic MP4 rating tagger based on embedded or searched lyrics.
 
 Usage: explicitag [OPTIONS] <PATHS>...
 
@@ -31,23 +31,46 @@ https://github.com/st0rm1wndz/explicitag
 
 ## Example
 
-```
-> explicitag "D:\Files\Music Library\deadmau5\(2010) 4x4=12"
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.01 - Some Chords.m4a - No lyrics found
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.05 - Animal Rights.m4a - No lyrics found
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.10 - Everything Before.m4a - No lyrics found
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.03 - City in Florida.m4a - No lyrics found
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.07 - Right This Second.m4a - No lyrics found
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.09 - One Trick Pony.m4a - (Local) Explicit
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.04 - Bad Selection.m4a - (Local) Inoffensive
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.06 - I Said (Michael Woods Remix).m4a - (Local) Inoffensive
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.08 - Raise Your Weapon.m4a - (Local) Explicit
-D:\Files\Music Library\deadmau5\(2010) 4x4=12\1.02 - SOFI Needs a Ladder.m4a - (Local) Inoffensive
-Processed 10 files. Skipped 5 files.
-```
+<details>
+  <summary>Expand to see example</summary>
+  <br>
+
+  ```
+  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.09 - Some Kind of Nature.m4a - Rating is the same as current
+  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.10 - On Melancholy Hill.m4a - Rating is the same as current
+  D:\Files\Music Library\Motion City Soundtrack\(2003) I Am the Movie\1.01 - Cambridge.m4a - Rating is the same as current
+  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.05 - Stylo.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.09 - November Has Come.m4a - (Local) Explicit
+  D:\Files\Music Library\Motion City Soundtrack\(2005) Commit This to Memory\1.03 - When _You're_ Around.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.15 - Demon Days.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.03 - White Flag.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2001) Gorillaz\1.01 - Re-Hash.m4a - (Local) Explicit
+  D:\Files\Music Library\Motion City Soundtrack\(2003) I Am the Movie\1.13 - Autographs & Apologies.m4a - (Local) Explicit
+  D:\Files\Music Library\Modest Mouse\(2007) We Were Dead Before the Ship Even Sank\1.13 - People as Places as People.m4a - (Local) Explicit
+  D:\Files\Music Library\Motion City Soundtrack\(2005) Commit This to Memory\1.04 - Resolution.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.06 - Feel Good Inc..m4a - (Local) Explicit
+  D:\Files\Music Library\Modest Mouse\(2007) We Were Dead Before the Ship Even Sank\1.14 - Invisible.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2001) Gorillaz\1.15 - M1 A1.m4a - (Local) Explicit
+  D:\Files\Music Library\Filter\(2002) The Amalgamut\1.12 - The 4th.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.14 - Don’t Get Lost in Heaven.m4a - Rating is the same as current
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.01 - Intro.m4a - Rating is the same as current
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.11 - White Light.m4a - Rating is the same as current
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.12 - DARE.m4a - Rating is the same as current
+  D:\Files\Music Library\Motion City Soundtrack\(2005) Commit This to Memory\1.05 - Feel Like Rain.m4a - Rating is the same as current
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.13 - Fire Coming Out of the Monkey’s Head.m4a - (Local) Explicit
+  D:\Files\Music Library\Motion City Soundtrack\(2003) I Am the Movie\1.02 - Shiver.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.07 - El Mañana.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.08 - Every Planet We Reach Is Dead.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.10 - All Alone.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.04 - Rhinestone Eyes.m4a - (Local) Explicit
+  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.05 - Dirty Harry.m4a - (Local) Explicit
+
+  ```
+</details>
 
 ## Future Features
 
-- [ ] Rework the words list, it's tailored towards bypassed words.
-- [ ] Support a custom words list as an argument.
+- [ ] Rework the words list, as it's tailored towards bypassed words.
+- [ ] Support a custom words list file as an argument.
 - [ ] Properly address API ratelimits.
+- [ ] Improve IO operations speed somehow.

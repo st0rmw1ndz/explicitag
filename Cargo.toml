@@ -10,8 +10,10 @@ license-file = "LICENSE"
 
 [dependencies]
 clap = { version = "4.5.0", features = ["derive"] }
+env_logger = "0.11.2"
 eyre = "0.6.12"
 futures = "0.3.30"
+log = "0.4.20"
 mp4ameta = "0.11.0"
 reqwest = "0.11.24"
 serde = { version = "1.0.197", features = ["serde_derive"] }

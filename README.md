@@ -8,7 +8,7 @@ An automatic MP4 rating tagger based on embedded or searched lyrics.
 
 ## Usage
 
-Clone the repository and build, or use `cargo run`.
+Download the latest release, or use `cargo run` on the project.
 
 ```
 An automatic MP4 rating tagger based on embedded or searched lyrics.
@@ -21,7 +21,8 @@ Arguments:
 Options:
   -c, --mark-clean    Mark safe tracks as specifically clean
   -a, --use-api       Search API for lyrics if local ones aren't present
-  -w, --write-lyrics  Write the lyrics from the API to the file
+  -w, --write-lyrics  Write lyrics from the API to files
+  -n, --no-write      Disable writing lyrics and ratings to files
   -q, --quiet         Suppress all output from the program
   -h, --help          Print help
   -V, --version       Print version
@@ -36,43 +37,55 @@ https://github.com/st0rm1wndz/explicitag
   <br>
 
   ```
-  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.09 - Some Kind of Nature.m4a - Rating is the same as current
-  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.10 - On Melancholy Hill.m4a - Rating is the same as current
-  D:\Files\Music Library\Motion City Soundtrack\(2003) I Am the Movie\1.01 - Cambridge.m4a - Rating is the same as current
-  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.05 - Stylo.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.09 - November Has Come.m4a - (Local) Explicit
-  D:\Files\Music Library\Motion City Soundtrack\(2005) Commit This to Memory\1.03 - When _You're_ Around.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.15 - Demon Days.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.03 - White Flag.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2001) Gorillaz\1.01 - Re-Hash.m4a - (Local) Explicit
-  D:\Files\Music Library\Motion City Soundtrack\(2003) I Am the Movie\1.13 - Autographs & Apologies.m4a - (Local) Explicit
-  D:\Files\Music Library\Modest Mouse\(2007) We Were Dead Before the Ship Even Sank\1.13 - People as Places as People.m4a - (Local) Explicit
-  D:\Files\Music Library\Motion City Soundtrack\(2005) Commit This to Memory\1.04 - Resolution.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.06 - Feel Good Inc..m4a - (Local) Explicit
-  D:\Files\Music Library\Modest Mouse\(2007) We Were Dead Before the Ship Even Sank\1.14 - Invisible.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2001) Gorillaz\1.15 - M1 A1.m4a - (Local) Explicit
-  D:\Files\Music Library\Filter\(2002) The Amalgamut\1.12 - The 4th.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.14 - Don’t Get Lost in Heaven.m4a - Rating is the same as current
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.01 - Intro.m4a - Rating is the same as current
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.11 - White Light.m4a - Rating is the same as current
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.12 - DARE.m4a - Rating is the same as current
-  D:\Files\Music Library\Motion City Soundtrack\(2005) Commit This to Memory\1.05 - Feel Like Rain.m4a - Rating is the same as current
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.13 - Fire Coming Out of the Monkey’s Head.m4a - (Local) Explicit
-  D:\Files\Music Library\Motion City Soundtrack\(2003) I Am the Movie\1.02 - Shiver.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.07 - El Mañana.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.08 - Every Planet We Reach Is Dead.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.10 - All Alone.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2010) Plastic Beach\1.04 - Rhinestone Eyes.m4a - (Local) Explicit
-  D:\Files\Music Library\Gorillaz\(2005) Demon Days\1.05 - Dirty Harry.m4a - (Local) Explicit
-
+[2024-02-23T12:00:05Z INFO  explicitag] Running with 403 words marked as explicit.
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.01 - Frank Sinatra.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.02 - The Distance.m4a - (Local) Explicit
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.03 - Friend Is a Four Letter Word.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.04 - Open Book.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.05 - Daria.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.06 - Race Car Ya‐Yas.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.07 - I Will Survive.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.08 - Stickshifts and Safetybelts.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.09 - Perhaps, Perhaps, Perhaps.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.10 - It’s Coming Down.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.11 - Nugget.m4a - (Local) Explicit
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.12 - She’ll Come Back to Me.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.13 - Italian Leather Sofa.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1996) Fashion Nugget\1.14 - Sad Songs and Waltzes.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.01 - Satan Is My Motor.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.02 - Mexico.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.03 - Never There.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.04 - Guitar.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.05 - You Turn the Screws.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.06 - Walk on By.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.07 - Sheep Go to Heaven.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.08 - When You Sleep.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.09 - Hem of Your Garment.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.10 - Alpha Beta Parking Lot.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.11 - Let Me Go.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.12 - Cool Blue Reason.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(1998) Prolonging the Magic\1.13 - Where Would I Be_.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.01 - Opera Singer.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.02 - Meanwhile, Rick James….m4a - (Local) Explicit
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.03 - Shadow Stabbing.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.04 - Short Skirt_Long Jacket.m4a - (Local) Explicit
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.05 - Commissioning a Symphony in C.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.06 - Arco Arena.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.07 - Comfort Eagle.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.08 - Long Line of Cars.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.09 - Love You Madly.m4a - (Local) Explicit
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.10 - Pretty Pink Ribbon.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] D:\Files\Music Library\CAKE\(2001) Comfort Eagle\1.11 - World of Two.m4a - (Local) Inoffensive
+[2024-02-23T12:00:05Z INFO  explicitag] Processed 38 files. Skipped 0 files.
   ```
 </details>
 
 ## Future Features
 
+- [ ] Allow customization of log output.
 - [ ] Support a custom words list file as an argument.
 - [ ] Properly address API ratelimits.
-- [ ] Improve IO operations speed somehow.
+- [x] Improve IO operations speed somehow.
 
 ## Attributions
 

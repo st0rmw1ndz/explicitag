@@ -1,9 +1,9 @@
 [package]
 name = "explicitag"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["frosty <inthishouseofcards@gmail.com>"]
 edition = "2021"
-description = "An automatic MP4 rating tagger based on embedded lyrics."
+description = "An automatic MP4 rating tagger based on embedded or searched lyrics."
 readme = "README.md"
 repository = "https://github.com/st0rm1wndz/explicitag"
 license-file = "LICENSE"

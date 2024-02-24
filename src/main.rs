@@ -1,5 +1,5 @@
 use std::path::{Path, PathBuf};
-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 
 use clap::{ColorChoice, Parser};
@@ -20,9 +20,6 @@ static USE_API: AtomicBool = AtomicBool::new(false);
 static WRITE_LYRICS: AtomicBool = AtomicBool::new(false);
 static NO_WRITE: AtomicBool = AtomicBool::new(false);
 
-static PROCESSED_FILES: AtomicUsize = AtomicUsize::new(0);
-static SKIPPED_FILES: AtomicUsize = AtomicUsize::new(0);
-
 #[derive(Debug, Deserialize)]
 struct LyristResponse {
     lyrics: Option<String>,
@@ -34,7 +31,13 @@ enum LyricsSource {
 }
 
 #[derive(Debug, Parser)]
-#[command(about, long_about = None, after_help = env!("CARGO_PKG_REPOSITORY"), version, color = ColorChoice::Never)]
+#[command(
+    about,
+    long_about = None,
+    after_help = env!("CARGO_PKG_REPOSITORY"),
+    version,
+    color = ColorChoice::Never,
+)]
 struct Cli {
     /// Files or directories to process
     #[arg(required = true)]
@@ -145,17 +148,42 @@ async fn process_file(
     Ok(format!("({}) {}", source_string, new_rating))
 }
 
-async fn create_task(path: PathBuf, explicit_words: Arc<Vec<&str>>, client: Arc<Client>) {
-    PROCESSED_FILES.fetch_add(1, Ordering::Relaxed);
-    match process_file(&path, &explicit_words, &client).await {
-        Ok(message) => {
-            log::info!("{} - {}", path.display(), message);
-        }
-        Err(error) => {
-            SKIPPED_FILES.fetch_add(1, Ordering::Relaxed);
-            log::warn!("{} - {}", path.display(), error);
+async fn create_task(path: PathBuf, explicit_words: Arc<Vec<&str>>, client: Arc<Client>) -> bool {
+    let result = process_file(&path, &explicit_words, &client).await;
+    match &result {
+        Ok(message) => log::info!("{} - {}", path.display(), message),
+        Err(error) => log::warn!("{} - {}", path.display(), error),
+    }
+
+    result.is_ok()
+}
+
+async fn process_path_entries(
+    entries: impl Iterator<Item = walkdir::DirEntry>,
+    explicit_words: Arc<Vec<&'static str>>,
+    client: Arc<Client>,
+) -> (i32, i32) {
+    let mut processed_files = 0;
+    let mut skipped_files = 0;
+
+    let tasks: Vec<_> = entries
+        .map(|entry| {
+            let path = entry.path().to_path_buf();
+            let explicit_words = Arc::clone(&explicit_words);
+            let client = Arc::clone(&client);
+
+            processed_files += 1;
+            tokio::spawn(async move { create_task(path, explicit_words, client).await })
+        })
+        .collect();
+
+    for task in futures::future::join_all(tasks).await {
+        if !(task.unwrap_or(false)) {
+            skipped_files += 1;
         }
     }
+
+    (processed_files, skipped_files)
 }
 
 #[tokio::main]
@@ -181,7 +209,7 @@ async fn main() -> eyre::Result<()> {
         HeaderValue::from_str(CLIENT_USER_AGENT)?,
     );
 
-    let explicit_words = Arc::new(include_str!("words.txt").split('\n').collect());
+    let explicit_words: Arc<Vec<&str>> = Arc::new(include_str!("words.txt").split('\n').collect());
     let client = Arc::new(Client::builder().default_headers(headers).build()?);
 
     let entries = args.paths.into_iter().flat_map(|path| {
@@ -190,27 +218,19 @@ async fn main() -> eyre::Result<()> {
             .filter_map(Result::ok)
             .filter(|e| e.file_type().is_file())
     });
-    let tasks: Vec<_> = entries
-        .map(|entry| {
-            let path = entry.path().to_path_buf();
-            let explicit_words = Arc::clone(&explicit_words);
-            let client = Arc::clone(&client);
-
-            tokio::spawn(create_task(path, explicit_words, client))
-        })
-        .collect();
 
     log::info!(
         "Running with {} words marked as explicit.",
         explicit_words.len()
     );
 
-    futures::future::join_all(tasks).await;
+    let (processed_files, skipped_files) =
+        process_path_entries(entries, explicit_words, client).await;
 
     log::info!(
         "Processed {} files. Skipped {} files.",
-        PROCESSED_FILES.load(Ordering::Relaxed),
-        SKIPPED_FILES.load(Ordering::Relaxed)
+        processed_files,
+        skipped_files
     );
 
     Ok(())

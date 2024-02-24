@@ -30,6 +30,9 @@ Options:
 https://github.com/st0rm1wndz/explicitag
 ```
 
+> [!NOTE]
+> The lyrics being searched via the API is an opt-in feature with the `--use-api` flag.
+
 ## Example
 
 <details>
